@@ -53,45 +53,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    class ChatViewHolder extends RecyclerView.ViewHolder{
 
-        TextView dataNomeTextView;
-        TextView mensagemTextView;
-        ChatViewHolder (View v){
-            super (v);
-            this.dataNomeTextView = v.findViewById(R.id.dataNomeTextView);
-            this.mensagemTextView = v.findViewById(R.id.mensagemTextView);
-        }
-
-    }
-
-    class ChatAdapter extends RecyclerView.Adapter <ChatViewHolder>{
-
-        private List <Mensagem> mensagens;
-        private Context context;
-
-        ChatAdapter (List<Mensagem> mensagens, Context context){
-            this.mensagens = mensagens;
-            this.context = context;
-        }
-
-        @NonNull
-        @Override
-        public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View v = inflater.inflate(R.layout.list_item, parent, false);
-            return new ChatViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-            Mensagem m = mensagens.get(position);
-            holder.mensagemTextView.setText(m.);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mensagens.size();
-        }
-    }
 }
