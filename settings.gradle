@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='pessoal_chat_firebase_auth_storage_firestore'

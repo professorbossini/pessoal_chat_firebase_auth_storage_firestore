@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">pessoal_chat_firebase_auth_storage_firestore</string>
+    <string name="dica_login">Digite seu login</string>
+    <string name="dica_senha">Digite sua senha</string>
+    <string name="quero_me_cadastrar">Quero me cadastrar</string>
+</resources>

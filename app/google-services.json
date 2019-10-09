@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "525760373385",
+    "firebase_url": "https://pessoalchatfirebaseauthstorage.firebaseio.com",
+    "project_id": "pessoalchatfirebaseauthstorage",
+    "storage_bucket": "pessoalchatfirebaseauthstorage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525760373385:android:d530e467b61f4e3deddc58",
+        "android_client_info": {
+          "package_name": "br.com.bossini.pessoal_chat_firebase_auth_storage_firestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525760373385-cqgd2cbc5mll2ob79p5ca2g3igp676rq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.bossini.pessoal_chat_firebase_auth_storage_firestore",
+            "certificate_hash": "16000449122ec5478b8e1b7f4ad61742510e2ca0"
+          }
+        },
+        {
+          "client_id": "525760373385-s4uoasl28op8724ma73dgcv83cf9qh6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpCr2BmYiA2i0qNV0VJD_LkLpO9yQgeqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525760373385-s4uoasl28op8724ma73dgcv83cf9qh6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
