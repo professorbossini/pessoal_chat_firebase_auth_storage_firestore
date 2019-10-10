@@ -1,8 +1,10 @@
 package br.com.bossini.pessoal_chat_firebase_auth_storage_firestore;
 
+import androidx.annotation.Nullable;
+
 import java.util.Date;
 
-class Mensagem {
+class Mensagem implements Comparable <Mensagem>{
 
     private String usuario;
     private Date data;
@@ -36,5 +38,18 @@ class Mensagem {
         this.usuario = usuario;
         this.data = data;
         this.texto = texto;
+    }
+
+    public Mensagem (){}
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        Mensagem outra = (Mensagem)obj;
+        return this.usuario.equals(outra.usuario) && this.data.equals(outra.data) && this.texto.equals(outra.texto);
+    }
+
+    @Override
+    public int compareTo(Mensagem mensagem) {
+        return this.data.compareTo(mensagem.data);
     }
 }

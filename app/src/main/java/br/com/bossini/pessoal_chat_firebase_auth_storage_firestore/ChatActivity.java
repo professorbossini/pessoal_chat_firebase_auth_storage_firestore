@@ -15,18 +15,58 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.annotation.Nullable;
 
 public class ChatActivity extends AppCompatActivity {
 
     private RecyclerView mensagensRecyclerView;
     private ChatAdapter adapter;
-    private List <Mensagem> mensagens;
-
+    private List<Mensagem> mensagens;
     private EditText mensagemEditText;
 
+    private FirebaseUser fireUser;
+    private FirebaseAuth mAuth;
+    private CollectionReference mMsgsReference;
+
+    private void getRemoteMsgs (){
+        mMsgsReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                mensagens.clear();
+                for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()){
+                    Mensagem incomingMsg = doc.toObject(Mensagem.class);
+                        mensagens.add(incomingMsg);
+                }
+                Collections.sort(mensagens);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void setupFirebase (){
+        mAuth = FirebaseAuth.getInstance();
+        fireUser = mAuth.getCurrentUser();
+        mMsgsReference = FirebaseFirestore.getInstance().collection("mensagens");
+        getRemoteMsgs();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +75,28 @@ public class ChatActivity extends AppCompatActivity {
         mensagens = new ArrayList<>();
         adapter = new ChatAdapter(mensagens, this);
         mensagensRecyclerView.setAdapter(adapter);
-        mensagensRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        mensagensRecyclerView.setLayoutManager(linearLayoutManager);
+
         mensagemEditText = findViewById(R.id.mensagemEditText);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setupFirebase();
+
     }
 
     public void enviarMensagem (View view){
 
         String mensagem = mensagemEditText.getText().toString();
-        Mensagem m = new Mensagem ("dono", new Date(), mensagem);
-        mensagens.add(m);
-        adapter.notifyDataSetChanged();
+        Mensagem m = new Mensagem (fireUser.getEmail(), new Date(), mensagem);
         esconderTeclado(view);
+        mMsgsReference.add(m).addOnSuccessListener((result1) -> {
+            //getRemoteMsgs();
+        });
 
     }
 
@@ -90,7 +141,6 @@ public class ChatActivity extends AppCompatActivity {
             holder.dataNomeTextView.setText(context.getString(R.string.data_nome, DateHelper.format(m.getData()), m.getUsuario()));
             holder.mensagemTextView.setText(m.getTexto());
             mensagemEditText.setText("");
-            mensagemEditText.clearFocus();
         }
 
         @Override

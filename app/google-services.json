@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "525760373385",
-    "firebase_url": "https://pessoalchatfirebaseauthstorage.firebaseio.com",
-    "project_id": "pessoalchatfirebaseauthstorage",
-    "storage_bucket": "pessoalchatfirebaseauthstorage.appspot.com"
+    "project_number": "690560828438",
+    "firebase_url": "https://pessoalchatfirebaseauths-7ea49.firebaseio.com",
+    "project_id": "pessoalchatfirebaseauths-7ea49",
+    "storage_bucket": "pessoalchatfirebaseauths-7ea49.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:525760373385:android:d530e467b61f4e3deddc58",
+        "mobilesdk_app_id": "1:690560828438:android:73ac2794c3e7a95fcc2137",
         "android_client_info": {
           "package_name": "br.com.bossini.pessoal_chat_firebase_auth_storage_firestore"
         }
       },
       "oauth_client": [
         {
-          "client_id": "525760373385-cqgd2cbc5mll2ob79p5ca2g3igp676rq.apps.googleusercontent.com",
+          "client_id": "690560828438-p371j07e7t8dvv2r5ao1s52vlu2qe3kr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "br.com.bossini.pessoal_chat_firebase_auth_storage_firestore",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "525760373385-s4uoasl28op8724ma73dgcv83cf9qh6l.apps.googleusercontent.com",
+          "client_id": "690560828438-sc2ome7s3bt670g8gfd23deqmi78m0ik.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBpCr2BmYiA2i0qNV0VJD_LkLpO9yQgeqU"
+          "current_key": "AIzaSyB7Kw3jFmwIkhH1yxJ7R7oIlJKT2ZXN1Pg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "525760373385-s4uoasl28op8724ma73dgcv83cf9qh6l.apps.googleusercontent.com",
+              "client_id": "690560828438-sc2ome7s3bt670g8gfd23deqmi78m0ik.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
