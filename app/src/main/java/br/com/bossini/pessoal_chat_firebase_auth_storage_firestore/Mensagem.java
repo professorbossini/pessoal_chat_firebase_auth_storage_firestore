@@ -31,4 +31,10 @@ class Mensagem {
     public void setTexto(String texto) {
         this.texto = texto;
     }
+
+    public Mensagem(String usuario, Date data, String texto) {
+        this.usuario = usuario;
+        this.data = data;
+        this.texto = texto;
+    }
 }

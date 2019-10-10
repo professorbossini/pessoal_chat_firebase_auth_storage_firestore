@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         loginEditText = findViewById(R.id.loginEditText);
         senhaEditText = findViewById(R.id.senhaEditText);
+        loginEditText.setText("teste@teste.com");
+        senhaEditText.setText("123456");
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         String login = loginEditText.getEditableText().toString();
         String senha = senhaEditText.getEditableText().toString();
         mAuth.signInWithEmailAndPassword(login, senha).addOnSuccessListener((result) -> {
-
+            startActivity (new Intent (this, ChatActivity.class));
 
         }).addOnFailureListener((exception) -> {
             exception.printStackTrace();
