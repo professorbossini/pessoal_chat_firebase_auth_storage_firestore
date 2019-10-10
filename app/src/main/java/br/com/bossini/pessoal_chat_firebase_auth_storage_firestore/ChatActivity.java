@@ -41,9 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     private ChatAdapter adapter;
     private List<Mensagem> mensagens;
     private EditText mensagemEditText;
-
     private FirebaseUser fireUser;
-    private FirebaseAuth mAuth;
     private CollectionReference mMsgsReference;
 
     private void getRemoteMsgs (){
@@ -62,8 +60,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setupFirebase (){
-        mAuth = FirebaseAuth.getInstance();
-        fireUser = mAuth.getCurrentUser();
+        fireUser = FirebaseAuth.getInstance().getCurrentUser();
         mMsgsReference = FirebaseFirestore.getInstance().collection("mensagens");
         getRemoteMsgs();
     }
@@ -78,7 +75,6 @@ public class ChatActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         mensagensRecyclerView.setLayoutManager(linearLayoutManager);
-
         mensagemEditText = findViewById(R.id.mensagemEditText);
     }
 
@@ -90,14 +86,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void enviarMensagem (View view){
-
         String mensagem = mensagemEditText.getText().toString();
         Mensagem m = new Mensagem (fireUser.getEmail(), new Date(), mensagem);
         esconderTeclado(view);
-        mMsgsReference.add(m).addOnSuccessListener((result1) -> {
-            //getRemoteMsgs();
-        });
-
+        mMsgsReference.add(m);
     }
 
     private void esconderTeclado (View v){

@@ -35,8 +35,6 @@ public class NovoUsuarioActivity extends AppCompatActivity {
             Toast.makeText(this, result.getUser().toString(), Toast.LENGTH_SHORT).show();
             finish();
         })
-        .addOnFailureListener((error) -> {
-            error.printStackTrace();
-        });
+        .addOnFailureListener(error -> error.printStackTrace());
     }
 }
