@@ -6,4 +6,5 @@
     <string name="data_nome">Em %s, %s diz:</string>
     <string name="digite_sua_mensagem">Digite a sua mensagem</string>
     <string name="no_camera">Cant take pic</string>
+    <string name="empty_email">Digite seu email</string>
 </resources>

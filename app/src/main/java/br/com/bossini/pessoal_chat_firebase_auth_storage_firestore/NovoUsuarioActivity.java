@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -18,6 +19,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Locale;
 
 public class NovoUsuarioActivity extends AppCompatActivity {
 
@@ -26,6 +35,7 @@ public class NovoUsuarioActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final int REQ_CODE_CAMERA = 1001;
     private ImageView pictureImageView;
+    private StorageReference pictureStorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +58,27 @@ public class NovoUsuarioActivity extends AppCompatActivity {
     }
 
     public void tirarFoto (View v){
-        Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(intent, REQ_CODE_CAMERA);
-        }else{
+        if (loginNovoUsuarioEditText.getText() != null
+                && !loginNovoUsuarioEditText.getText().toString().isEmpty()){
+            Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+            if (intent.resolveActivity(getPackageManager()) != null){
+                startActivityForResult(intent, REQ_CODE_CAMERA);
+            }else{
+                Toast.makeText(
+                        this,
+                        getString(R.string.no_camera),
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        }
+        else{
             Toast.makeText(
                     this,
-                    getString(R.string.no_camera),
+                    getString(R.string.empty_email),
                     Toast.LENGTH_SHORT
             ).show();
         }
+
     }
 
     @Override
@@ -65,13 +86,32 @@ public class NovoUsuarioActivity extends AppCompatActivity {
         switch (requestCode){
             case REQ_CODE_CAMERA:
                 if (resultCode == Activity.RESULT_OK){
-                    Bitmap foto = (Bitmap) data.getExtras().get ("data");
-                    Bitmap copy = foto.copy(foto.getConfig(), true);
-                    copy.setHeight(pictureImageView.getHeight());
-                    copy.setWidth(pictureImageView.getWidth());
-                    pictureImageView.setImageBitmap(copy);
+                    Bitmap picture = (Bitmap) data.getExtras().get ("data");
+                    pictureImageView.setImageBitmap(picture);
+
                 }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void uploadPicture (Bitmap picture){
+        pictureStorageReference = FirebaseStorage.getInstance().getReference(
+                String.format(
+                        Locale.getDefault(),
+                        "images/%s/profilePic.jpg",
+                        loginNovoUsuarioEditText.getText().toString()
+                )
+        );
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        picture.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+
+        pictureStorageReference.putBytes(bytes).addOnSuccessListener((task) -> {
+            Toast.makeText(
+                    this,
+                    pictureStorageReference.getDownloadUrl().toString(),
+                    Toast.LENGTH_SHORT
+            ).show();
+        });
     }
 }
