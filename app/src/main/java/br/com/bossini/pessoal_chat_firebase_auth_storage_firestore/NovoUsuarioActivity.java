@@ -33,7 +33,9 @@ public class NovoUsuarioActivity extends AppCompatActivity {
     private EditText loginNovoUsuarioEditText;
     private EditText senhaNovoUsuarioEditText;
     private FirebaseAuth mAuth;
+    //membro da classe
     private static final int REQ_CODE_CAMERA = 1001;
+    //variável de instância
     private ImageView pictureImageView;
     private StorageReference pictureStorageReference;
 
@@ -43,6 +45,7 @@ public class NovoUsuarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_novo_usuario);
         loginNovoUsuarioEditText = findViewById(R.id.loginNovoUsuarioEditText);
         senhaNovoUsuarioEditText = findViewById(R.id.senhaNovoUsuarioEditText);
+        //no método onCreate
         pictureImageView = findViewById(R.id.pictureImageView);
         mAuth = FirebaseAuth.getInstance();
     }
@@ -66,7 +69,7 @@ public class NovoUsuarioActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(
                         this,
-                        getString(R.string.no_camera),
+                        getString(R.string.no_camera),//defina um texto apropriado
                         Toast.LENGTH_SHORT
                 ).show();
             }
@@ -78,7 +81,6 @@ public class NovoUsuarioActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
         }
-
     }
 
     @Override
