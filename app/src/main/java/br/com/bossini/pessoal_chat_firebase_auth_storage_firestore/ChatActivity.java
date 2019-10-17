@@ -13,8 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -23,12 +25,15 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -90,6 +95,7 @@ public class ChatActivity extends AppCompatActivity {
         Mensagem m = new Mensagem (fireUser.getEmail(), new Date(), mensagem);
         esconderTeclado(view);
         mMsgsReference.add(m);
+        mensagemEditText.setText("");
     }
 
     private void esconderTeclado (View v){
@@ -99,12 +105,14 @@ public class ChatActivity extends AppCompatActivity {
 
     class ChatViewHolder extends RecyclerView.ViewHolder{
 
+        ImageView profilePicImageView;
         TextView dataNomeTextView;
         TextView mensagemTextView;
         ChatViewHolder (View v){
             super (v);
             this.dataNomeTextView = v.findViewById(R.id.dataNomeTextView);
             this.mensagemTextView = v.findViewById(R.id.mensagemTextView);
+            this.profilePicImageView = v.findViewById(R.id.profilePicImageView);
         }
 
     }
@@ -132,7 +140,18 @@ public class ChatActivity extends AppCompatActivity {
             Mensagem m = mensagens.get(position);
             holder.dataNomeTextView.setText(context.getString(R.string.data_nome, DateHelper.format(m.getData()), m.getUsuario()));
             holder.mensagemTextView.setText(m.getTexto());
-            mensagemEditText.setText("");
+            StorageReference profilePicReference = FirebaseStorage.getInstance().getReference(
+                    String.format(
+                            Locale.getDefault(),
+                            "images/%s/profilePic.jpg",
+                            m.getUsuario().replace("@", "")
+                    )
+            );
+            //verifica se a pessoa tem foto
+            profilePicReference.getDownloadUrl().addOnSuccessListener((result) -> {
+                Glide.with(context).load(profilePicReference).into(holder.profilePicImageView);
+            });
+
         }
 
         @Override

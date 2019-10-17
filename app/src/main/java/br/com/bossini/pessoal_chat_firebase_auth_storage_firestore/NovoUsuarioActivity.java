@@ -101,7 +101,7 @@ public class NovoUsuarioActivity extends AppCompatActivity {
                 String.format(
                         Locale.getDefault(),
                         "images/%s/profilePic.jpg",
-                        loginNovoUsuarioEditText.getText().toString()
+                        loginNovoUsuarioEditText.getText().toString().replace("@", "")
                 )
         );
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -3,6 +3,7 @@ package br.com.bossini.pessoal_chat_firebase_auth_storage_firestore;
 import androidx.annotation.Nullable;
 
 import java.util.Date;
+import java.util.Objects;
 
 class Mensagem implements Comparable <Mensagem>{
 
@@ -51,5 +52,10 @@ class Mensagem implements Comparable <Mensagem>{
     @Override
     public int compareTo(Mensagem mensagem) {
         return this.data.compareTo(mensagem.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(usuario, data, texto);
     }
 }
