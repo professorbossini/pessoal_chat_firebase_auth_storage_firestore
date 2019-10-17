@@ -72,7 +72,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.nav_drawer);
         mensagensRecyclerView = findViewById(R.id.mensagensRecyclerView);
         mensagens = new ArrayList<>();
         adapter = new ChatAdapter(mensagens, this);
@@ -114,7 +114,6 @@ public class ChatActivity extends AppCompatActivity {
             this.mensagemTextView = v.findViewById(R.id.mensagemTextView);
             this.profilePicImageView = v.findViewById(R.id.profilePicImageView);
         }
-
     }
 
     class ChatAdapter extends RecyclerView.Adapter <ChatViewHolder>{
@@ -150,6 +149,8 @@ public class ChatActivity extends AppCompatActivity {
             //verifica se a pessoa tem foto
             profilePicReference.getDownloadUrl().addOnSuccessListener((result) -> {
                 Glide.with(context).load(profilePicReference).into(holder.profilePicImageView);
+            }).addOnFailureListener((failure) ->{
+                holder.profilePicImageView.setImageResource(R.drawable.ic_person_black_50dp);
             });
 
         }

@@ -7,4 +7,6 @@
     <string name="digite_sua_mensagem">Digite a sua mensagem</string>
     <string name="no_camera">Cant take pic</string>
     <string name="empty_email">Digite seu email</string>
+    <string name="sala_cinema_meu_item">Cinema</string>
+    <string name="sala_variedades_menu_item">Variedades</string>
 </resources>

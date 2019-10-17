@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/salaChatCinemaMenuItem"
+            android:checked="true"
+            android:icon="@drawable/ic_local_movies_black_24dp"
+            android:title="@string/sala_cinema_meu_item"/>
+        <item
+            android:id="@+id/salaChatVariedadesMenuItem"
+            android:icon="@drawable/ic_people_outline_black_24dp"
+            android:title="@string/sala_variedades_menu_item"/>
+    </group>
+</menu>
