@@ -9,4 +9,6 @@
     <string name="empty_email">Digite seu email</string>
     <string name="sala_cinema_meu_item">Cinema</string>
     <string name="sala_variedades_menu_item">Variedades</string>
+    <string name="drawer_open">Abrindo..</string>
+    <string name="drawer_close">Fechando...</string>
 </resources>

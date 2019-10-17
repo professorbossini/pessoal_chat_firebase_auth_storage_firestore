@@ -1,7 +1,10 @@
 package br.com.bossini.pessoal_chat_firebase_auth_storage_firestore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +51,10 @@ public class ChatActivity extends AppCompatActivity {
     private EditText mensagemEditText;
     private FirebaseUser fireUser;
     private CollectionReference mMsgsReference;
+    private DrawerLayout chatDrawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private Toolbar toolbar;
+
 
     private void getRemoteMsgs (){
         mMsgsReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -73,14 +80,37 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_drawer);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mensagensRecyclerView = findViewById(R.id.mensagensRecyclerView);
         mensagens = new ArrayList<>();
         adapter = new ChatAdapter(mensagens, this);
         mensagensRecyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
+        /*getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);*/
         mensagensRecyclerView.setLayoutManager(linearLayoutManager);
         mensagemEditText = findViewById(R.id.mensagemEditText);
+        chatDrawerLayout = findViewById(R.id.chatDrawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(
+                ChatActivity.this,
+                chatDrawerLayout,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close
+        ){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+        };
+        chatDrawerLayout.addDrawerListener(actionBarDrawerToggle);
     }
 
     @Override
@@ -160,4 +190,6 @@ public class ChatActivity extends AppCompatActivity {
             return mensagens.size();
         }
     }
+
+
 }
