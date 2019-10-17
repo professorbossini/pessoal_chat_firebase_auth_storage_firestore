@@ -88,7 +88,7 @@ public class NovoUsuarioActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK){
                     Bitmap picture = (Bitmap) data.getExtras().get ("data");
                     pictureImageView.setImageBitmap(picture);
-
+                    uploadPicture(picture);
                 }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -106,12 +106,6 @@ public class NovoUsuarioActivity extends AppCompatActivity {
         picture.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytes = baos.toByteArray();
 
-        pictureStorageReference.putBytes(bytes).addOnSuccessListener((task) -> {
-            Toast.makeText(
-                    this,
-                    pictureStorageReference.getDownloadUrl().toString(),
-                    Toast.LENGTH_SHORT
-            ).show();
-        });
+        pictureStorageReference.putBytes(bytes);
     }
 }
